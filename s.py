@@ -106,6 +106,8 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
 
     spec = importlib.util.spec_from_file_location("models_module", input_file)
+    if not spec or not spec.loader:
+        raise FileNotFoundError(f"Could not load the file: {input_file}. Ensure the file path is correct.")
     models_module = importlib.util.module_from_spec(spec)
     sys.modules["models_module"] = models_module
     spec.loader.exec_module(models_module)
