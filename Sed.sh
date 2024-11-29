@@ -1,8 +1,1 @@
-sed -E '/^example=/ {
-    :a
-    $!{
-        N
-        /\)$/!ba
-    }
-    s/^example=(.*\))$/examples=[\1])/
-}' your_file.txt
+sed -E ':a; /example=.*\)$/!{N; ba}; s/example=(.*)\)/examples=[\1])/' your_file.txt
